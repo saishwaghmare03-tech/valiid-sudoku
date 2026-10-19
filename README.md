@@ -28,6 +28,11 @@ This solution uses a **recursive traversal** approach to visit each cell on the 
 
 ---
 
+Complexity Analysis
+Time Complexity: O(1) — Since the Sudoku board size is fixed at 9 x 9, the number of cells is a constant 81. The algorithm executes a bounded number of operations.
+
+Space Complexity: O(1) — The recursive call stack goes up to a maximum depth of 81 frames, using constant auxiliary space.
+
 ## 📂 Java Implementation
 
 ```java
