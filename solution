@@ -1,0 +1,64 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        return su(board, 0, 0);
+    }
+
+    public boolean su(char[][] board, int r, int c) {
+        // Base case: successfully checked all rows
+        if (r == 9)
+            return true;
+        // Move to the next row when the end of the current row is reached
+        if (c == 9)
+            return su(board, r + 1, 0);
+        // Skip empty cells
+        if (board[r][c] == '.')
+            return su(board, r, c + 1);
+
+        char num = board[r][c];
+
+        // Check row for duplicates
+        for (int j = 0; j < 9; j++) {
+            if (j != c && board[r][j] == num)
+                return false;
+        }
+
+        // Check column for duplicates
+        for (int i = 0; i < 9; i++) {
+            if (i != r && board[i][c] == num)
+                return false;
+        }
+
+        // Check 3x3 sub-box for duplicates
+        int startR = (r / 3) * 3;
+        int startC = (c / 3) * 3;
+        for (int i = startR; i < startR + 3; i++) {
+            for (int j = startC; j < startC + 3; j++) {
+                if ((i != r || j != c) && board[i][j] == num)
+                    return false;
+            }
+        }
+
+        // Proceed to the next cell
+        return su(board, r, c + 1);
+    }
+
+    public static void main(String[] args) {
+        Solution solver = new Solution();
+
+        // Example test board
+        char[][] board = {
+            {'5','3','.','.','7','.','.','.','.'},
+            {'6','.','.','1','9','5','.','.','.'},
+            {'.','9','8','.','.','.','.','6','.'},
+            {'8','.','.','.','6','.','.','.','3'},
+            {'4','.','.','8','.','3','.','.','1'},
+            {'7','.','.','.','2','.','.','.','6'},
+            {'.','6','.','.','.','.','2','8','.'},
+            {'.','.','.','4','1','9','.','.','5'},
+            {'.','.','.','.','8','.','.','7','9'}
+        };
+
+        boolean isValid = solver.isValidSudoku(board);
+        System.out.println("Is the Sudoku board valid? " + isValid);
+    }
+}
